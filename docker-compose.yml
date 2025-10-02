@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16
+    container_name: para_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: para_user
+      POSTGRES_PASSWORD: para_password
+      POSTGRES_DB: para_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - para_postgres_data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: para_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@para.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+volumes:
+  para_postgres_data:
