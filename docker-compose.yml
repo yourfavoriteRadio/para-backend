@@ -10,9 +10,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - para_postgres_data:/var/lib/postgresql/data
-      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-
+      - para_postgres_data:/var/lib/postgresql/data 
+      
   pgadmin:
     image: dpage/pgadmin4
     container_name: para_pgadmin
